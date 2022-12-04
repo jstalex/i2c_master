@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="mstr_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="mstr_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="37460000fs"></ZoomStartTime>
+      <ZoomEndTime time="300660001fs"></ZoomEndTime>
+      <Cursor1Time time="206060000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/mstr_tb/scl" type="logic">
+      <obj_property name="ElementShortName">scl</obj_property>
+      <obj_property name="ObjectShortName">scl</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/sda" type="logic">
+      <obj_property name="ElementShortName">sda</obj_property>
+      <obj_property name="ObjectShortName">sda</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/dut/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/dut/bit_ind" type="array">
+      <obj_property name="ElementShortName">bit_ind[2:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_ind[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/dut/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/dut/RAM" type="array">
+      <obj_property name="ElementShortName">RAM[0:31][7:0]</obj_property>
+      <obj_property name="ObjectShortName">RAM[0:31][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/bit_ind" type="array">
+      <obj_property name="ElementShortName">bit_ind[2:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_ind[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/counter" type="array">
+      <obj_property name="ElementShortName">counter[3:0]</obj_property>
+      <obj_property name="ObjectShortName">counter[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mstr_tb/wd" type="logic">
+      <obj_property name="ElementShortName">wd</obj_property>
+      <obj_property name="ObjectShortName">wd</obj_property>
+   </wvobject>
+</wave_config>

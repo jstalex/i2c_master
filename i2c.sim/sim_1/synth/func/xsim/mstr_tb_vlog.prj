@@ -1,0 +1,7 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"mstr_tb_func_synth.v" \
+"../../../../../i2c.srcs/sim_1/new/mstr_tb.v" \
+
+# Do not sort compile order
+nosort
