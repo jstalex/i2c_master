@@ -50,7 +50,7 @@ parameter   ADDR = 0,  // for reading
 			
 			RD_ACK_1 = 9,
 			WR_ACK = 7,
-			WR_DATA = 6;
+			WR_DATA = 10;
 			 
 initial state <= START;
 
@@ -173,23 +173,25 @@ always @(posedge clk) begin
                     end
                     RD_ACK: begin
                         if (scl == 0) begin
-                            state <= RD_DATA;
+                            wd <= wdata[7];
+                            we <= 1;
+                            state <= WR_DATA;
                         end
                         if (scl == 1) begin
                             if (sda == 1'b0) begin
                                 bit_ind <= 0;
-                            end // else state <= RD_ACK;
+                            end 
                         end
                     end
                     
                     WR_DATA: begin
                         if (scl == 0) begin
-                            wd <= RAM[mem_ind-1][bit_ind];
+                            wd <= wdata[6 - bit_ind];
                             bit_ind <= bit_ind + 1'b1;
                             if (bit_ind == 3'd7) begin
                                 bit_ind <= 0;
                                 wd <= 1'b1;
-                                we <= 1'b1;
+                                we <= 1'b0;
                                 state <= RD_ACK_1;
                             end
                         end
@@ -197,7 +199,9 @@ always @(posedge clk) begin
                     
                     RD_ACK_1: begin
                         if (scl == 0) begin
-                            state <= RD_DATA;
+                            wd <= 0;
+                            we <= 1;
+                            state <= STOP;
                         end
                         if (scl == 1) begin
                             if (sda == 1'b0) begin

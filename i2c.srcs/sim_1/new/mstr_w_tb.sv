@@ -103,26 +103,29 @@ always @(posedge clk) begin
 	       end
 	   end
 	   ANS: begin
-	      wd <= 0;
-	      we <= 1'b1;
-	     //  #40;
 	      bit_ind <= 0;
-	      if (scl == 0) state <= GETD;
+	      if (scl == 0) begin
+	          we <= 0; 
+	          state <= GETD;
+	      end
 	   end
 	   GETD: begin
 	       if (scl == 1) recieved_data[bit_ind] <= sda;
 	       if (scl == 0) begin
-	           bit_ind = bit_ind + 1;
 	           if (bit_ind == 3'd7) begin
 	               bit_ind = 0;
 	               wd <= 0;
 	               we <= 1;
 	               state <= ANS_1;
 	           end
+	           bit_ind = bit_ind + 1;
 	       end
 	   end
 	   ANS_1: begin
-	      if (scl == 0) state <= STOP;
+	      if (scl == 0) begin
+	          we <= 0;
+	          state <= STOP;
+	      end
 	   end
 	   STOP: begin
 	       we <= 0;
