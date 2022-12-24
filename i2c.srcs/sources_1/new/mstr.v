@@ -142,62 +142,73 @@ always @(posedge clk) begin
             end
             1'b1: begin // writing
                 case(state)
-                    ADDR: begin
-                        we <= 1'b1;
-                        // bit_ind <= 0;
-                        if (scl == 0) begin
-                            wd <= address[bit_ind];
-                            bit_ind <= bit_ind + 1'b1;
-                            if (bit_ind == 3'd6)begin
-                                bit_ind <= 0;
-                                state <= RW;
-                            end
+                    START: begin
+                        if (scl == 1) begin
+                            we <= 1'b1;
+                            wd <= 0;
+                            state <= ADDR;
                         end
                     end
-                    RW: begin
-                        we <= 1'b1;
+                    ADDR: begin
                         if (scl == 0) begin
-                            wd <= 1'b1; // write
+                            we <= 1'b1;
+                            // bit_ind <= 0;
+                            wd <= address[bit_ind];
+                            if (bit_ind == 3'd7) begin
+                                bit_ind <= 0;
+                                wd <= 1;
+                                state <= RW;
+                            end
+                            bit_ind <= bit_ind + 1'b1;
+                        end
+                    end
+                    
+                    RW: begin
+                        wd <= 1;
+                        if (scl == 0) begin
                             we <= 1'b0;
                             // далее ведомый отвечает
                             state <= RD_ACK;
                         end
                     end
                     RD_ACK: begin
+                        if (scl == 0) begin
+                            state <= RD_DATA;
+                        end
                         if (scl == 1) begin
                             if (sda == 1'b0) begin
                                 bit_ind <= 0;
-                                we <= 1'b1;
-                                state <= WR_DATA;
-                            end else state <= RD_ACK;
+                            end // else state <= RD_ACK;
                         end
                     end
+                    
                     WR_DATA: begin
                         if (scl == 0) begin
                             wd <= RAM[mem_ind-1][bit_ind];
                             bit_ind <= bit_ind + 1'b1;
                             if (bit_ind == 3'd7) begin
                                 bit_ind <= 0;
-                                we <= 1'b0;
+                                wd <= 1'b1;
+                                we <= 1'b1;
                                 state <= RD_ACK_1;
                             end
                         end
                     end
+                    
                     RD_ACK_1: begin
+                        if (scl == 0) begin
+                            state <= RD_DATA;
+                        end
                         if (scl == 1) begin
-                        if (sda == 1'b0) begin
-                            bit_ind <= 0;
-                            we <= 1'b1;
-                            state <= STOP;
-                        end else state <= RD_ACK_1;
+                            if (sda == 1'b0) begin
+                                bit_ind <= 0;
+                            end // else state <= RD_ACK;
                         end
                     end
                     STOP: begin
                         // nack signal
-                        wd <= 0;
                         if (scl == 1) begin
                             wd <= 1'b1;
-                            wd <= 1'b0;
                             state <= IDLE;
                         end
                     end
